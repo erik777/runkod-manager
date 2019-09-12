@@ -1,21 +1,22 @@
-import logging
 import os
 import socket
 import time
+from datetime import timedelta
 from typing import List
 
 from manager.cert import create_cert, delete_cert
 from manager.db import session_maker
+from manager.logger import create_logger
 from manager.model import Domain
-from manager.util import now_utc, in_15_min, in_1_min
+from manager.util import now_utc
 
-logging.basicConfig(level=logging.INFO)
+logger = create_logger('sync')
 
 MASTER_IP = os.environ.get('MASTER_IP')
 
 
 def next_try_date(domain: Domain):
-    return in_1_min() if domain.ip_err_count <= 60 else in_15_min()
+    return (now_utc() + timedelta(minutes=1)) if domain.ip_err_count <= 60 else (now_utc() + timedelta(minutes=15))
 
 
 def checker():
@@ -28,7 +29,9 @@ def checker():
     for domain in domains:
         # stop website after 700 ip errors (roughly 1 week of try)
         if domain.ip_err_count >= 700:
+            logger.info('Domain stopping {}'.format(domain.name))
             delete_cert(domain.name)
+            logger.info('Domain cert deleted {}'.format(domain.name))
             domain.stopped = 1
             continue
 
@@ -45,6 +48,7 @@ def checker():
             if domain.cert == 0:
                 if create_cert(domain.name):
                     domain.cert = 1
+                    logger.info('Domain certificate created {}'.format(domain.name))
         else:
             domain.next_check = next_try_date(domain)
             domain.ip_err_count += 1
