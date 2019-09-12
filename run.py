@@ -11,7 +11,7 @@ os.sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src'
 
 from manager.util import assert_env_vars
 
-assert_env_vars('MONGO_URI', 'LOCAL_DB_URI', 'MASTER_IP', 'CERT_WEB_ROOT', 'CERT_EMAIL')
+assert_env_vars('MONGO_URI', 'LOCAL_DB_URI', 'MASTER_IP', 'CERT_WEB_ROOT', 'CERT_EMAIL', 'CONF_FILE_PATH')
 
 
 def main():
@@ -19,6 +19,7 @@ def main():
     cmd_list = (
         'sync',
         'check',
+        'config',
         'create_db',
         'create_data',
         'drop_db',
@@ -35,6 +36,10 @@ def main():
 
     if cmd == 'check':
         from manager.check import main
+        main()
+
+    if cmd == 'config':
+        from manager.config import main
         main()
 
     if cmd == 'create_db':

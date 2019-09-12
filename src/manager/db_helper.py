@@ -16,3 +16,14 @@ def get_project_since_time(session: Session) -> Union[float, None]:
         return float(s.project_since_time)
 
     return None
+
+
+def set_config_checksum(session: Session, cs: str):
+    s = session.query(State).first()
+    s.config_checksum = cs
+
+
+def get_config_checksum(session: Session) -> Union[str, None]:
+    s: State = session.query(State).first()
+
+    return s.config_checksum

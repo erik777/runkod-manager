@@ -1,6 +1,11 @@
 import os
 from datetime import datetime, timedelta
 import pytz
+import hashlib
+
+
+def md5_checksum(s):
+    return hashlib.md5(s.encode('utf-8')).hexdigest()
 
 
 def now_utc() -> datetime:
