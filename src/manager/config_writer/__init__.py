@@ -57,6 +57,7 @@ def writer(force=False):
     checksum = md5_checksum(config)
 
     if not force and checksum == get_config_checksum(session):
+        session.close()
         return
 
     config_path = os.environ.get('CONF_FILE_PATH')
