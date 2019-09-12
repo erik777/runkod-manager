@@ -12,7 +12,7 @@ logger = create_logger('sync')
 def get_project_list(since=None) -> list:
     filters = {'radiksType': 'project', 'custom': True}
     if since:
-        filters['updatedAt'] = {"$lt": since}
+        filters['updatedAt'] = {"$gt": since}
     projects = mongo_db['radiks-server-data'].find(filters, sort=[('updatedAt', 1)])
     return [x for x in projects]
 
