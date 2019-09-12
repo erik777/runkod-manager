@@ -26,6 +26,7 @@ def main():
     )
 
     parser.add_argument('cmd', choices=cmd_list, nargs='?', default='app')
+    parser.add_argument('--force', default=0)
 
     args = parser.parse_args()
     cmd = args.cmd
@@ -38,9 +39,9 @@ def main():
         from manager.check import main
         main()
 
-    if cmd == 'config':
+    if cmd == 'config_writer':
         from manager.config_writer import main
-        main()
+        main(args.force)
 
     if cmd == 'create_db':
         from manager.db_tool import create_db

@@ -1,14 +1,14 @@
-import logging
 import os
 from typing import List
 
 from manager.db import session_maker
 from manager.db_helper import get_config_checksum, set_config_checksum
 from manager.helper import reload_nginx
+from manager.logger import create_logger
 from manager.model import Domain
 from manager.util import md5_checksum
 
-logging.basicConfig(level=logging.INFO)
+logger = create_logger('config-writer')
 
 
 def gen_domain_block(domain):
@@ -35,13 +35,15 @@ def gen_domain_block(domain):
 
 
 def prepare_config(domains: List[str]) -> str:
+    s = ''
+
     for d in domains:
         s = "{}\n{}".format(s, gen_domain_block(d))
 
     return s
 
 
-def main():
+def main(force):
     session = session_maker()
 
     domains: List[Domain] = session.query(Domain) \
@@ -54,7 +56,7 @@ def main():
 
     checksum = md5_checksum(config)
 
-    if checksum == get_config_checksum(session):
+    if not force and checksum == get_config_checksum(session):
         return
 
     config_path = os.environ.get('CONF_FILE_PATH')
@@ -64,7 +66,11 @@ def main():
 
     set_config_checksum(session, checksum)
 
+    logger.info('New config has written to {}'.format(config_path))
+
     session.commit()
     session.close()
 
     reload_nginx()
+
+    logger.info('Nginx reloaded')
