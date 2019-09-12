@@ -56,7 +56,8 @@ def writer(force=False):
 
     checksum = md5_checksum(config)
 
-    if not force and checksum == get_config_checksum(session):
+    curr_checksum = get_config_checksum(session)
+    if not force and checksum == curr_checksum:
         session.close()
         return
 
