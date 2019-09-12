@@ -35,10 +35,6 @@ def gen_domain_block(domain):
 
 
 def prepare_config(domains: List[str]) -> str:
-    s = """upstream up {
-    server 127.0.0.1:8000;
-}"""
-
     for d in domains:
         s = "{}\n{}".format(s, gen_domain_block(d))
 

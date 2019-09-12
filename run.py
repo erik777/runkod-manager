@@ -19,7 +19,7 @@ def main():
     cmd_list = (
         'sync',
         'check',
-        'config',
+        'config_writer',
         'create_db',
         'create_data',
         'drop_db',
@@ -39,7 +39,7 @@ def main():
         main()
 
     if cmd == 'config':
-        from manager.config import main
+        from manager.config_writer import main
         main()
 
     if cmd == 'create_db':
