@@ -20,6 +20,7 @@ def main():
         'sync',
         'check',
         'config_writer',
+        'daemon',
         'create_db',
         'create_data',
         'drop_db',
@@ -42,6 +43,10 @@ def main():
     if cmd == 'config_writer':
         from manager.config_writer import main
         main(args.force)
+
+    if cmd == 'daemon':
+        from manager.daemon import main
+        main()
 
     if cmd == 'create_db':
         from manager.db_tool import create_db

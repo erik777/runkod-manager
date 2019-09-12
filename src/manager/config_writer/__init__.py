@@ -43,7 +43,7 @@ def prepare_config(domains: List[str]) -> str:
     return s
 
 
-def main(force):
+def main(force=False):
     session = session_maker()
 
     domains: List[Domain] = session.query(Domain) \
