@@ -1,8 +1,9 @@
 import os
 import socket
-import time
 from datetime import timedelta
 from typing import List
+
+from sqlalchemy.orm.session import Session
 
 from manager.cert import create_cert, delete_cert
 from manager.db import session_maker
@@ -20,7 +21,7 @@ def next_try_date(domain: Domain):
 
 
 def checker():
-    session = session_maker()
+    session: Session = session_maker()
 
     domains: List[Domain] = session.query(Domain) \
         .filter(Domain.stopped == 0) \
@@ -55,9 +56,3 @@ def checker():
 
     session.commit()
     session.close()
-
-
-def main():
-    while True:
-        checker()
-        time.sleep(4)

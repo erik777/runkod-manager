@@ -18,7 +18,7 @@ def main():
     parser = argparse.ArgumentParser(description='')
     cmd_list = (
         'sync',
-        'check',
+        'checker',
         'config_writer',
         'daemon',
         'create_db',
@@ -33,16 +33,16 @@ def main():
     cmd = args.cmd
 
     if cmd == 'sync':
-        from manager.sync import main
-        main()
+        from manager.sync import sync
+        sync()
 
-    if cmd == 'check':
-        from manager.check import main
-        main()
+    if cmd == 'checker':
+        from manager.checker import checker
+        checker()
 
     if cmd == 'config_writer':
-        from manager.config_writer import main
-        main(args.force)
+        from manager.config_writer import writer
+        writer(args.force)
 
     if cmd == 'daemon':
         from manager.daemon import main

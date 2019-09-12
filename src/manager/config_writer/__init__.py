@@ -11,7 +11,7 @@ from manager.util import md5_checksum
 logger = create_logger('config-writer')
 
 
-def gen_domain_block(domain):
+def gen_server_block(domain):
     temp = """server {
     listen 443 ssl;
     server_name <-domain->;
@@ -38,12 +38,12 @@ def prepare_config(domains: List[str]) -> str:
     s = ''
 
     for d in domains:
-        s = "{}\n{}".format(s, gen_domain_block(d))
+        s = "{}\n{}".format(s, gen_server_block(d))
 
     return s
 
 
-def main(force=False):
+def writer(force=False):
     session = session_maker()
 
     domains: List[Domain] = session.query(Domain) \

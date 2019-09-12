@@ -17,7 +17,7 @@ def get_project_list(since=None) -> list:
     return [x for x in projects]
 
 
-def main():
+def sync():
     session = session_maker()
 
     since_time = get_project_since_time(session)
