@@ -54,3 +54,4 @@ def sync():
         session.flush()
 
     session.commit()
+    session.close()
