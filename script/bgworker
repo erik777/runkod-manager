@@ -16,7 +16,7 @@ PIDFILE="/var/run/${NAME}.pid"
 LOGFILE="/var/log/${NAME}.log"
 BASE_DIR="/your/app/dir"
 
-. "${BASE_DIR}/my.sh"
+. "${BASE_DIR}/env.sh"
 
 DAEMON="${BASE_DIR}/venv/bin/python"
 DAEMON_OPTS="${BASE_DIR}/run.py worker"
