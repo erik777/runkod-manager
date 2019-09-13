@@ -2,7 +2,5 @@ venv
 .idea
 *.pyc
 .DS_Store
-my.sh
 env.sh
-
 log/
