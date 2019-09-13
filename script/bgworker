@@ -1,17 +1,17 @@
 #! /bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          Daemon
+# Provides:          BgWorker
 # Required-Start:    $network postgresql
 # Required-Stop:     $network postgresql
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Starts manager daemon
-# Description:       Manager daemon
+# Short-Description: Starts bg worker
+# Description:       Bg Worker
 ### END INIT INFO
 
-NAME=daemon
-DESC="daemon"
+NAME=bgworker
+DESC="bgworker"
 PIDFILE="/var/run/${NAME}.pid"
 LOGFILE="/var/log/${NAME}.log"
 BASE_DIR="/your/app/dir"
@@ -19,7 +19,7 @@ BASE_DIR="/your/app/dir"
 . "${BASE_DIR}/my.sh"
 
 DAEMON="${BASE_DIR}/venv/bin/python"
-DAEMON_OPTS="${BASE_DIR}/run.py daemon"
+DAEMON_OPTS="${BASE_DIR}/run.py worker"
 
 START_OPTS="--start --background --make-pidfile --pidfile ${PIDFILE} --chdir ${BASE_DIR} --exec ${DAEMON} ${DAEMON_OPTS}"
 STOP_OPTS="--stop --pidfile ${PIDFILE}"

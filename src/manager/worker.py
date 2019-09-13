@@ -6,7 +6,7 @@ from manager.config_writer import writer as config_writer
 from manager.sync import sync as sync
 from manager.logger import create_logger
 
-logger = create_logger('daemon')
+logger = create_logger('worker')
 
 
 def ex_hook(exc_type, exc_value, exc_traceback):
