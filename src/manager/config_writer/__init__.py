@@ -12,15 +12,15 @@ logger = create_logger('config-writer')
 
 
 def gen_server_block(domain: str) -> str:
-    config_path = os.environ.get('CONF_FILE_PATH')
-
     temp = """server {
     listen 443 ssl;
+    listen 80;
+
     server_name <-domain->;
 
     location / {
         proxy_pass  http://up;
-        include     <-config_path->/proxy_params;
+        include     <-config_dir->/proxy_params;
     }
 
     ssl_certificate         /etc/letsencrypt/live/<-domain->/fullchain.pem;
@@ -29,7 +29,7 @@ def gen_server_block(domain: str) -> str:
     ssl_dhparam             /etc/letsencrypt/ssl-dhparams.pem;
 }"""
 
-    return temp.replace('<-domain->', domain).replace('<-config_path->', config_path)
+    return temp.replace('<-domain->', domain).replace('<-config_dir->', os.environ.get('CONF_DIR'))
 
 
 def prepare_config(domains: List[str]) -> str:
@@ -59,7 +59,8 @@ def writer(force=False):
         session.close()
         return
 
-    config_path = os.environ.get('CONF_FILE_PATH')
+    config_path = os.path.join(os.environ.get('CONF_DIR'), os.environ.get('CONF_FILE'))
+
     with open(config_path, 'w') as f:
         f.write(config)
         f.close()
