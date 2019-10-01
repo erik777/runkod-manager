@@ -4,7 +4,7 @@ import pytz
 import hashlib
 
 
-def md5_checksum(s):
+def md5_checksum(s) -> str:
     return hashlib.md5(s.encode('utf-8')).hexdigest()
 
 
