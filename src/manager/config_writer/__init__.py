@@ -45,7 +45,7 @@ def writer(force=False):
     session = session_maker()
 
     domains: List[Domain] = session.query(Domain) \
-        .filter(Domain.cert == 1) \
+        .filter(Domain.cert_status == 1) \
         .order_by(Domain.created.asc()).all()
 
     domain_names = [x.name for x in domains]

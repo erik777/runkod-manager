@@ -1,4 +1,4 @@
-from sqlalchemy import (Column, String, DateTime, Integer, SmallInteger)
+from sqlalchemy import (Column, String, DateTime, Integer, SmallInteger, Binary)
 from sqlalchemy.ext.declarative import declarative_base
 
 from manager.util import now_utc
@@ -21,15 +21,21 @@ class Domain(Base):
 
     name = Column('name', String, nullable=False, primary_key=True)
 
-    cert = Column('cert_status', SmallInteger, nullable=False, default=0)
+    ip_errs = Column('ip_errs', Integer, nullable=False, default=0)
 
-    ip_err_count = Column('ip_err_count', Integer, nullable=False, default=0)
+    next_ip_check = Column('next_ip_check', DateTime(timezone=True), nullable=False, default=now_utc)
 
     stopped = Column('stopped', SmallInteger, nullable=False, default=0)
 
-    created = Column('created', DateTime(timezone=True), nullable=False, default=now_utc)
+    cert_status = Column('cert_status', SmallInteger, nullable=False, default=0)
 
-    next_check = Column('next_check', DateTime(timezone=True), nullable=False, default=now_utc)
+    cert_file = Column('cert_file', Binary)
+
+    cert_key_file = Column('cert_key_file', Binary)
+
+    cert_date = Column('cert_date', DateTime(timezone=True))
+
+    created = Column('created', DateTime(timezone=True), nullable=False, default=now_utc)
 
     def __repr__(self):
         return '<Domain {}>'.format(self.name)
