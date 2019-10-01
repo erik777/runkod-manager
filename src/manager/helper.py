@@ -9,7 +9,8 @@ def domain_ip(domain: str) -> str:
 
 def create_cert(domain: str) -> bool:
     cmd = ['certbot', 'certonly', '--webroot', '-w', os.environ.get('CERT_WEB_ROOT'), '--email',
-           os.environ.get('CERT_EMAIL'), '--agree-tos', '--preferred-challenges', 'http', '-d', domain]
+           os.environ.get('CERT_EMAIL'), '--agree-tos', '--force-renewal',
+           '--preferred-challenges', 'http', '-d', domain]
     out = run(cmd, stdout=PIPE, stderr=PIPE)
     return out.returncode == 0
 
