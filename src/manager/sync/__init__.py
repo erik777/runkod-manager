@@ -28,7 +28,7 @@ def sync():
 
     for project in projects:
         if project['status'] == PROJECT_STATUS_ON and session.query(Domain).filter(
-                Domain.name == project['name']) is None:
+                Domain.name == project['name']).first() is None:
             d = Domain()
             d.name = project['name']
             session.add(d)
