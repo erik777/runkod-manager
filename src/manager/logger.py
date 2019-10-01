@@ -9,7 +9,7 @@ if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
 
-def create_logger(name, level=logging.INFO):
+def create_logger(name: str, level: int = logging.INFO) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(level)
 

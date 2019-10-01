@@ -5,7 +5,7 @@ from typing import List
 
 from sqlalchemy.orm.session import Session
 
-from manager.cert import create_cert, delete_cert
+from manager.helper import create_cert, delete_cert
 from manager.db import session_maker
 from manager.logger import create_logger
 from manager.model import Domain
