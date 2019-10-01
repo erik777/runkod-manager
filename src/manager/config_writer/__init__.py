@@ -11,27 +11,25 @@ from manager.util import md5_checksum
 logger = create_logger('config-writer')
 
 
-def gen_server_block(domain):
+def gen_server_block(domain: str) -> str:
+    config_path = os.environ.get('CONF_FILE_PATH')
+
     temp = """server {
     listen 443 ssl;
     server_name <-domain->;
-            
+
     location / {
-        proxy_pass          http://up;
-        proxy_redirect      off;
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Real-IP $remote_addr;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header    X-Forwarded-Host $server_name;
+        proxy_pass  http://up;
+        include     <-config_path->/proxy_params;
     }
-    
+
     ssl_certificate         /etc/letsencrypt/live/<-domain->/fullchain.pem;
     ssl_certificate_key     /etc/letsencrypt/live/<-domain->/privkey.pem;
     include                 /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam             /etc/letsencrypt/ssl-dhparams.pem;
 }"""
 
-    return temp.replace('<-domain->', domain)
+    return temp.replace('<-domain->', domain).replace('<-config_path->', config_path)
 
 
 def prepare_config(domains: List[str]) -> str:
