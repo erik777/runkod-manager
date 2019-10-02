@@ -25,10 +25,10 @@ def create_cert(domain: Domain) -> bool:
     cert_dir = os.environ.get('CERT_BASE_DIR')
 
     cert_path = os.path.join(le_cert_dir, domain.name, 'fullchain.pem')
-    new_cert_path = os.path.join(cert_dir, '{}.pem'.format(domain.id))
+    new_cert_path = os.path.join(cert_dir, '{}.pem'.format(domain.name))
 
     cert_key_path = os.path.join(le_cert_dir, domain.name, 'privkey.pem')
-    new_cert_key_path = os.path.join(cert_dir, '{}-key.pem'.format(domain.id))
+    new_cert_key_path = os.path.join(cert_dir, '{}.key.pem'.format(domain.name))
 
     copyfile(cert_path, new_cert_path)
     copyfile(cert_key_path, new_cert_key_path)

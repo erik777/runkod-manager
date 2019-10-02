@@ -8,12 +8,12 @@ from manager.logger import create_logger
 from manager.model import Domain
 from manager.util import md5_checksum, assert_env_vars
 
-assert_env_vars('CONF_DIR', 'CONF_FILE')
+assert_env_vars('CONF_DIR', 'CONF_FILE', 'CERT_BASE_DIR')
 
 logger = create_logger('config-writer')
 
 
-def gen_server_block(domain: str) -> str:
+def gen_server_block(domain: Domain) -> str:
     temp = """server {
     listen 443 ssl;
     listen 80;
@@ -25,16 +25,18 @@ def gen_server_block(domain: str) -> str:
         include     <-config_dir->/proxy_params;
     }
 
-    ssl_certificate         /etc/letsencrypt/live/<-domain->/fullchain.pem;
-    ssl_certificate_key     /etc/letsencrypt/live/<-domain->/privkey.pem;
+    ssl_certificate         <-cert_base_dir->/<-domain->.pem;
+    ssl_certificate_key     <-cert_base_dir->/<-domain->.key.pem;
     include                 /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam             /etc/letsencrypt/ssl-dhparams.pem;
 }"""
 
-    return temp.replace('<-domain->', domain).replace('<-config_dir->', os.environ.get('CONF_DIR'))
+    return temp.replace('<-domain_name->', domain.name) \
+        .replace('<-config_dir->', os.environ.get('CONF_DIR')) \
+        .replace('<-cert_base_dir->', os.environ.get('CERT_BASE_DIR'))
 
 
-def prepare_config(domains: List[str]) -> str:
+def prepare_config(domains: List[Domain]) -> str:
     s = ''
 
     for d in domains:
@@ -50,9 +52,7 @@ def writer(force=False):
         .filter(Domain.cert_status == 1) \
         .order_by(Domain.created.asc()).all()
 
-    domain_names = [x.name for x in domains]
-
-    config = prepare_config(domain_names)
+    config = prepare_config(domains)
 
     checksum = md5_checksum(config)
 
