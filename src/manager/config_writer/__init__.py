@@ -31,7 +31,7 @@ def gen_server_block(domain: Domain) -> str:
     ssl_dhparam             /etc/letsencrypt/ssl-dhparams.pem;
 }"""
 
-    return temp.replace('<-domain_name->', domain.name) \
+    return temp.replace('<-domain->', domain.name) \
         .replace('<-config_dir->', os.environ.get('CONF_DIR')) \
         .replace('<-cert_base_dir->', os.environ.get('CERT_BASE_DIR'))
 
