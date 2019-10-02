@@ -19,7 +19,9 @@ class State(Base):
 class Domain(Base):
     __tablename__ = 'domains'
 
-    name = Column('name', String, nullable=False, primary_key=True)
+    id = Column('id', Integer, nullable=False, primary_key=True)
+
+    name = Column('name', String, nullable=False, unique=True)
 
     ip_errs = Column('ip_errs', Integer, nullable=False, default=0)
 
@@ -28,6 +30,10 @@ class Domain(Base):
     stopped = Column('stopped', SmallInteger, nullable=False, default=0)
 
     cert_status = Column('cert_status', SmallInteger, nullable=False, default=0)
+
+    cert_file = Column('cert_file', Binary)
+
+    cert_key_file = Column('cert_key_file', Binary)
 
     cert_date = Column('cert_date', DateTime(timezone=True))
 

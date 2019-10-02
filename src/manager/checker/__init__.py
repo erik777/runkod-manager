@@ -49,19 +49,15 @@ def checker():
 
             # renew certs every 30 days
             if domain.cert_status == 1 and (now_utc() - domain.cert_date).days >= 30:
-                if create_cert(domain.name):
+                if create_cert(domain):
                     domain.cert_date = now_utc()
-                    domain.cert_file = ""
-                    domain.cert_key_file = ""
                     logger.info('Domain certificate renewed {}'.format(domain.name))
 
             # first cert creation
             if domain.cert_status == 0:
-                if create_cert(domain.name):
+                if create_cert(domain):
                     domain.cert_status = 1
                     domain.cert_date = now_utc()
-                    domain.cert_file = ""
-                    domain.cert_key_file = ""
                     logger.info('Domain certificate created {}'.format(domain.name))
 
         else:
