@@ -17,6 +17,8 @@ def create_cert(domain: Domain) -> bool:
            '--preferred-challenges', 'http', '-d', domain.name]
     out = run(cmd, stdout=PIPE, stderr=PIPE)
 
+    print(out)
+
     if out.returncode == 0:
         return False
 
