@@ -17,9 +17,7 @@ def create_cert(domain: Domain) -> bool:
            '--preferred-challenges', 'http', '-d', domain.name]
     out = run(cmd, stdout=PIPE, stderr=PIPE)
 
-    print(out.returncode)
-
-    if out.returncode == 0:
+    if out.returncode != 0:
         return False
 
     # Copy cert files
@@ -38,7 +36,7 @@ def create_cert(domain: Domain) -> bool:
     # Delete cert records from certbot
     cmd = ['certbot', 'delete', '--cert-name', domain.name]
     out = run(cmd, stdout=PIPE, stderr=PIPE)
-    if out.returncode == 0:
+    if out.returncode != 0:
         return False
 
     # Add cert file binaries to db entity
