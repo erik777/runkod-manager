@@ -52,6 +52,9 @@ def checker():
                 if create_cert(domain):
                     domain.cert_date = now_utc()
                     logger.info('Domain certificate renewed {}'.format(domain.name))
+                else:
+                    # Probably certbot rate limit exceeded. Try in 1 hour
+                    domain.next_ip_check = now_utc() + timedelta(minutes=60)
 
             # first cert creation
             if domain.cert_status == 0:
@@ -59,6 +62,9 @@ def checker():
                     domain.cert_status = 1
                     domain.cert_date = now_utc()
                     logger.info('Domain certificate created {}'.format(domain.name))
+                else:
+                    # Probably certbot rate limit exceeded. Try in 1 hour
+                    domain.next_ip_check = now_utc() + timedelta(minutes=60)
 
         else:
             domain.next_ip_check = next_try_date(domain)
