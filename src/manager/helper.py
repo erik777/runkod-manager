@@ -12,7 +12,11 @@ def create_cert(domain: str) -> bool:
            os.environ.get('CERT_EMAIL'), '--agree-tos', '--force-renewal',
            '--preferred-challenges', 'http', '-d', domain]
     out = run(cmd, stdout=PIPE, stderr=PIPE)
-    return out.returncode == 0
+
+    if out.returncode == 0:
+        return False
+
+    return True
 
 
 def delete_cert(domain: str) -> bool:

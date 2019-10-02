@@ -9,7 +9,9 @@ from manager.db import session_maker
 from manager.helper import create_cert
 from manager.logger import create_logger
 from manager.model import Domain
-from manager.util import now_utc
+from manager.util import now_utc, assert_env_vars
+
+assert_env_vars('MASTER_IP', 'CERT_BASE_DIR', 'LE_CERT_BASE_DIR', 'CERT_WEB_ROOT', 'CERT_EMAIL')
 
 logger = create_logger('sync')
 
@@ -33,9 +35,6 @@ def checker():
             logger.info('Domain stopping {}'.format(domain.name))
             domain.stopped = 1
             domain.cert_status = 0
-            domain.cert_file = None
-            domain.cert_key_file = None
-            domain.cert_date = None
             continue
 
         try:
@@ -48,7 +47,7 @@ def checker():
         if ip_verified:
             domain.ip_errs = 0
 
-            # refresh certs every 30 days
+            # renew certs every 30 days
             if domain.cert_status == 1 and (now_utc() - domain.cert_date).days >= 30:
                 if create_cert(domain.name):
                     domain.cert_date = now_utc()

@@ -11,7 +11,7 @@ os.sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'src'
 
 from manager.util import assert_env_vars
 
-assert_env_vars('MONGO_URI', 'LOCAL_DB_URI', 'MASTER_IP', 'CERT_WEB_ROOT', 'CERT_EMAIL', 'CONF_DIR', 'CONF_FILE')
+assert_env_vars('MONGO_URI', 'LOCAL_DB_URI')
 
 
 def main():

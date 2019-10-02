@@ -6,7 +6,9 @@ from manager.db_helper import get_config_checksum, set_config_checksum
 from manager.helper import reload_nginx
 from manager.logger import create_logger
 from manager.model import Domain
-from manager.util import md5_checksum
+from manager.util import md5_checksum, assert_env_vars
+
+assert_env_vars('CONF_DIR', 'CONF_FILE')
 
 logger = create_logger('config-writer')
 
