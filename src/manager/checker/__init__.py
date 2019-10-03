@@ -45,16 +45,12 @@ def checker():
         ip_verified = ip == MASTER_IP
 
         if ip_verified:
-            domain.ip_errs = 0
 
             # renew certs every 30 days
             if domain.cert_status == 1 and (now_utc() - domain.cert_date).days >= 30:
                 if create_cert(domain):
                     domain.cert_date = now_utc()
                     logger.info('Domain certificate renewed {}'.format(domain.name))
-                else:
-                    # Probably certbot rate limit exceeded. Try in 1 hour
-                    domain.next_ip_check = now_utc() + timedelta(minutes=60)
 
             # first cert creation
             if domain.cert_status == 0:
@@ -62,10 +58,10 @@ def checker():
                     domain.cert_status = 1
                     domain.cert_date = now_utc()
                     logger.info('Domain certificate created {}'.format(domain.name))
-                else:
-                    # Probably certbot rate limit exceeded. Try in 1 hour
-                    domain.next_ip_check = now_utc() + timedelta(minutes=60)
 
+            # visit this domain in 1 hour again
+            domain.next_ip_check = now_utc() + timedelta(minutes=60)
+            domain.ip_errs = 0
         else:
             domain.next_ip_check = next_try_date(domain)
             domain.ip_errs += 1
