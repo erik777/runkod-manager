@@ -1,0 +1,42 @@
+[2019-10-05 22:22:55 +0300] [99136] [INFO] Starting gunicorn 19.9.0
+[2019-10-05 22:22:55 +0300] [99136] [INFO] Listening at: http://127.0.0.1:5002,unix:/Users/talhasch/Desktop/runkod/runkod-manager/script/..//api.sock (99136)
+[2019-10-05 22:22:55 +0300] [99136] [INFO] Using worker: sync
+[2019-10-05 22:22:55 +0300] [99143] [INFO] Booting worker with pid: 99143
+[2019-10-05 22:22:55 +0300] [99144] [INFO] Booting worker with pid: 99144
+[2019-10-05 22:22:55 +0300] [99146] [INFO] Booting worker with pid: 99146
+[2019-10-05 22:22:55 +0300] [99148] [INFO] Booting worker with pid: 99148
+[2019-10-05 22:22:55 +0300] [99149] [INFO] Booting worker with pid: 99149
+[2019-10-05 22:22:55 +0300] [99150] [INFO] Booting worker with pid: 99150
+[2019-10-05 22:22:55 +0300] [99151] [INFO] Booting worker with pid: 99151
+[2019-10-05 22:22:55 +0300] [99152] [INFO] Booting worker with pid: 99152
+[2019-10-05 22:23:01 +0300] [99136] [INFO] Handling signal: int
+[2019-10-05 22:23:01 +0300] [99143] [INFO] Worker exiting (pid: 99143)
+[2019-10-05 22:23:01 +0300] [99152] [INFO] Worker exiting (pid: 99152)
+[2019-10-05 22:23:01 +0300] [99151] [INFO] Worker exiting (pid: 99151)
+[2019-10-05 22:23:01 +0300] [99149] [INFO] Worker exiting (pid: 99149)
+[2019-10-05 22:23:01 +0300] [99144] [INFO] Worker exiting (pid: 99144)
+[2019-10-05 22:23:01 +0300] [99148] [INFO] Worker exiting (pid: 99148)
+[2019-10-05 22:23:01 +0300] [99150] [INFO] Worker exiting (pid: 99150)
+[2019-10-05 22:23:01 +0300] [99146] [INFO] Worker exiting (pid: 99146)
+[2019-10-05 22:23:01 +0300] [99136] [INFO] Shutting down: Master
+[2019-10-05 22:23:08 +0300] [99163] [INFO] Starting gunicorn 19.9.0
+[2019-10-05 22:23:08 +0300] [99163] [INFO] Listening at: http://127.0.0.1:5002,unix:/Users/talhasch/Desktop/runkod/runkod-manager/script/..//api.sock (99163)
+[2019-10-05 22:23:08 +0300] [99163] [INFO] Using worker: sync
+[2019-10-05 22:23:08 +0300] [99170] [INFO] Booting worker with pid: 99170
+[2019-10-05 22:23:08 +0300] [99171] [INFO] Booting worker with pid: 99171
+[2019-10-05 22:23:08 +0300] [99172] [INFO] Booting worker with pid: 99172
+[2019-10-05 22:23:08 +0300] [99173] [INFO] Booting worker with pid: 99173
+[2019-10-05 22:23:09 +0300] [99176] [INFO] Booting worker with pid: 99176
+[2019-10-05 22:23:09 +0300] [99177] [INFO] Booting worker with pid: 99177
+[2019-10-05 22:23:09 +0300] [99178] [INFO] Booting worker with pid: 99178
+[2019-10-05 22:23:09 +0300] [99179] [INFO] Booting worker with pid: 99179
+[2019-10-05 22:24:02 +0300] [99163] [INFO] Handling signal: int
+[2019-10-05 22:24:02 +0300] [99173] [INFO] Worker exiting (pid: 99173)
+[2019-10-05 22:24:02 +0300] [99172] [INFO] Worker exiting (pid: 99172)
+[2019-10-05 22:24:02 +0300] [99179] [INFO] Worker exiting (pid: 99179)
+[2019-10-05 22:24:02 +0300] [99177] [INFO] Worker exiting (pid: 99177)
+[2019-10-05 22:24:02 +0300] [99178] [INFO] Worker exiting (pid: 99178)
+[2019-10-05 22:24:02 +0300] [99170] [INFO] Worker exiting (pid: 99170)
+[2019-10-05 22:24:02 +0300] [99176] [INFO] Worker exiting (pid: 99176)
+[2019-10-05 22:24:02 +0300] [99171] [INFO] Worker exiting (pid: 99171)
+[2019-10-05 22:24:03 +0300] [99163] [INFO] Shutting down: Master

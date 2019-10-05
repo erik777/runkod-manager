@@ -21,6 +21,7 @@ def main():
         'checker',
         'config_writer',
         'worker',
+        'api',
         'create_db',
         'create_data',
         'drop_db',
@@ -46,6 +47,10 @@ def main():
 
     if cmd == 'worker':
         from manager.worker import main
+        main()
+
+    if cmd == 'api':
+        from manager.api.app import main
         main()
 
     if cmd == 'create_db':
