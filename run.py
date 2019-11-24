@@ -22,6 +22,7 @@ def main():
         'config_writer',
         'worker',
         'api',
+        'reset_domain',
         'create_db',
         'create_data',
         'drop_db',
@@ -52,6 +53,10 @@ def main():
     if cmd == 'api':
         from manager.api.app import main
         main()
+
+    if cmd == 'reset_domain':
+        from manager.manual import reset_domain
+        reset_domain()
 
     if cmd == 'create_db':
         from manager.db_tool import create_db
