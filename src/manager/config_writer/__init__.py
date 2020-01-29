@@ -19,12 +19,8 @@ def gen_server_block(domain: Domain) -> str:
     listen 80;
 
     server_name <-domain->;
-
-    location / {
-        proxy_pass  http://up;
-        include     <-config_dir->/proxy_params;
-    }
-
+        
+    include                 <-config_dir->/routes;
     ssl_certificate         <-cert_base_dir->/<-domain->.pem;
     ssl_certificate_key     <-cert_base_dir->/<-domain->.key.pem;
     include                 /etc/letsencrypt/options-ssl-nginx.conf;
