@@ -5,7 +5,7 @@ from manager.util import now_utc
 
 Base = declarative_base()
 
-__all__ = ['Base', 'State', 'Domain']
+__all__ = ['Base', 'State', 'Project']
 
 
 class State(Base):
@@ -16,8 +16,8 @@ class State(Base):
     config_checksum = Column('config_checksum', String)
 
 
-class Domain(Base):
-    __tablename__ = 'domains'
+class Project(Base):
+    __tablename__ = 'projects'
 
     id = Column('id', Integer, nullable=False, primary_key=True)
 
@@ -40,4 +40,4 @@ class Domain(Base):
     created = Column('created', DateTime(timezone=True), nullable=False, default=now_utc)
 
     def __repr__(self):
-        return '<Domain {}>'.format(self.name)
+        return '<Project {}>'.format(self.name)

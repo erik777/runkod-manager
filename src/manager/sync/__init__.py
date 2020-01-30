@@ -3,7 +3,7 @@ from manager.db import mongo_db
 from manager.db import session_maker
 from manager.db_helper import set_project_since_time, get_project_since_time
 from manager.logger import create_logger
-from manager.model import Domain
+from manager.model import Project
 
 logger = create_logger('sync')
 
@@ -27,11 +27,11 @@ def sync():
         return
 
     for project in projects:
-        if project['status'] == PROJECT_STATUS_ON and session.query(Domain).filter(
-                Domain.name == project['name']).first() is None:
-            d = Domain()
-            d.name = project['name']
-            session.add(d)
+        if project['status'] == PROJECT_STATUS_ON and session.query(Project).filter(
+                Project.name == project['name']).first() is None:
+            p = Project()
+            p.name = project['name']
+            session.add(p)
 
             logger.info('New project {}'.format(project['name']))
 
