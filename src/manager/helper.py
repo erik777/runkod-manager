@@ -1,13 +1,8 @@
 import os
-import socket
 from shutil import copyfile
 from subprocess import run, PIPE
 
 from manager.model import Project
-
-
-def domain_ip(domain: str) -> str:
-    return socket.gethostbyname(domain)
 
 
 def create_cert(project: Project) -> bool:
