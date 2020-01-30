@@ -1,11 +1,13 @@
 from sqlalchemy import (Column, String, DateTime, Integer, SmallInteger, Binary)
 from sqlalchemy.ext.declarative import declarative_base
+import random
+import string
 
-from manager.util import now_utc
+from manager.util import now_utc, md5_checksum
 
 Base = declarative_base()
 
-__all__ = ['Base', 'State', 'Project']
+__all__ = ['Base', 'State', 'Project', 'Domain']
 
 
 class State(Base):
@@ -41,3 +43,27 @@ class Project(Base):
 
     def __repr__(self):
         return '<Project {}>'.format(self.name)
+
+
+def domain_key(name):
+    seed = md5_checksum('{}-{}'.format(now_utc().isoformat(), name)) + string.ascii_uppercase
+    return ''.join(list(random.sample(seed, 40)))
+
+
+class Domain(Base):
+    __tablename__ = 'domains'
+
+    def __init__(self, name):
+        self.name = name
+        self.key = domain_key(name)
+
+    id = Column('id', Integer, nullable=False, primary_key=True)
+
+    name = Column('name', String, nullable=False, unique=True)
+
+    key = Column('key', String, nullable=False, unique=True)
+
+    created = Column('created', DateTime(timezone=True), nullable=False, default=now_utc)
+
+    def __repr__(self):
+        return '<Domain {}>'.format(self.name)
