@@ -46,8 +46,8 @@ class Project(Base):
 
 
 def domain_key(name):
-    seed = md5_checksum('{}-{}'.format(now_utc().isoformat(), name)) + string.ascii_uppercase
-    return ''.join(list(random.sample(seed, 40)))
+    seed = md5_checksum(name) + string.ascii_uppercase
+    return 'runkod-' + ''.join(list(random.sample(seed, 40)))
 
 
 class Domain(Base):
@@ -62,6 +62,10 @@ class Domain(Base):
     name = Column('name', String, nullable=False, unique=True)
 
     key = Column('key', String, nullable=False, unique=True)
+
+    verified = Column('verified', SmallInteger, nullable=False, default=0)
+
+    verification_date = Column('verification_date', DateTime(timezone=True))
 
     created = Column('created', DateTime(timezone=True), nullable=False, default=now_utc)
 

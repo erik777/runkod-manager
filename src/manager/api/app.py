@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from manager.api.resources import (IndexResource, HostIpResource, DomainKeyResource)
+from manager.api.resources import (IndexResource, HostIpResource, DomainKeyResource, DomainKeyCheckResource)
 
 app = None
 
@@ -18,6 +18,7 @@ def __flask_setup():
     api.add_resource(IndexResource, '/')
     api.add_resource(HostIpResource, '/host-ip')
     api.add_resource(DomainKeyResource, '/domain-key')
+    api.add_resource(DomainKeyCheckResource, '/domain-key-check')
 
 
 def __run_dev_server():
