@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from manager.api.resources import (IndexResource, HostIpResource, DomainKeyResource, DomainKeyCheckResource)
+from manager.api.resources import (IndexResource, HostIpResource, DomainVerificationResource, DomainExtractResource)
 
 app = None
 
@@ -17,12 +17,15 @@ def __flask_setup():
 
     api.add_resource(IndexResource, '/')
     api.add_resource(HostIpResource, '/host-ip')
-    api.add_resource(DomainKeyResource, '/domain-key')
-    api.add_resource(DomainKeyCheckResource, '/domain-key-check')
+    api.add_resource(DomainVerificationResource, '/domain-verification')
+    api.add_resource(DomainExtractResource, '/domain-extract')
 
 
 def __run_dev_server():
     global app
+
+    from flask_cors import CORS
+    CORS(app)
 
     app.config['DEVELOPMENT'] = True
     app.config['DEBUG'] = True

@@ -45,23 +45,26 @@ class Project(Base):
         return '<Project {}>'.format(self.name)
 
 
-def domain_key(name):
+def domain_txt(name):
     seed = md5_checksum(name) + string.ascii_uppercase
-    return 'runkod-' + ''.join(list(random.sample(seed, 40)))
+    return 'runkod-verification-' + ''.join(list(random.sample(seed, 30)))
 
 
 class Domain(Base):
     __tablename__ = 'domains'
 
-    def __init__(self, name):
+    def __init__(self, name, uid):
         self.name = name
-        self.key = domain_key(name)
+        self.uid = uid
+        self.txt = domain_txt(name)
 
     id = Column('id', Integer, nullable=False, primary_key=True)
 
     name = Column('name', String, nullable=False, unique=True)
 
-    key = Column('key', String, nullable=False, unique=True)
+    uid = Column('uid', String, nullable=False)
+
+    txt = Column('txt', String, nullable=False, unique=True)
 
     verified = Column('verified', SmallInteger, nullable=False, default=0)
 

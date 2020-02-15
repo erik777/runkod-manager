@@ -1,3 +1,4 @@
 from .index import IndexResource
 from .host_ip import HostIpResource
-from .domain import DomainKeyResource, DomainKeyCheckResource
+from .domain_verification import DomainVerificationResource
+from .domain_extract import DomainExtractResource
