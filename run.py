@@ -38,9 +38,9 @@ def main():
         from manager.sync import sync
         sync()
 
-    if cmd == 'checker':
-        from manager.checker import checker
-        checker()
+    if cmd == 'project_checker':
+        from manager.project_checker import project_checker
+        project_checker()
 
     if cmd == 'config_writer':
         from manager.config_writer import writer

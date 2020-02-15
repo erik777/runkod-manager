@@ -22,7 +22,7 @@ def next_try_date(project: Project):
     return (now_utc() + timedelta(minutes=1)) if project.ip_errs <= 60 else (now_utc() + timedelta(minutes=15))
 
 
-def checker():
+def project_checker():
     session: Session = session_maker()
 
     projects: List[Project] = session.query(Project) \

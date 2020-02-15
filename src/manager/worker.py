@@ -1,7 +1,7 @@
 import time
 import sys
 
-from manager.checker import checker
+from manager.project_checker import project_checker
 from manager.config_writer import writer as config_writer
 from manager.sync import sync as sync
 from manager.logger import create_logger
@@ -23,6 +23,6 @@ sys.excepthook = ex_hook
 def main():
     while True:
         sync()
-        checker()
+        project_checker()
         config_writer()
         time.sleep(1)
