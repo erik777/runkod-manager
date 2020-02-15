@@ -1,10 +1,11 @@
-import time
 import sys
+import time
 
-from manager.project_checker import project_checker
 from manager.config_writer import writer as config_writer
-from manager.sync import sync as sync
+from manager.domain_cleaner import domain_cleaner
 from manager.logger import create_logger
+from manager.project_checker import project_checker
+from manager.sync import sync as sync
 
 logger = create_logger('worker')
 
@@ -25,4 +26,5 @@ def main():
         sync()
         project_checker()
         config_writer()
+        domain_cleaner()
         time.sleep(1)

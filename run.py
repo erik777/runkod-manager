@@ -18,7 +18,8 @@ def main():
     parser = argparse.ArgumentParser(description='')
     cmd_list = (
         'sync',
-        'checker',
+        'project_checker',
+        'domain_cleaner',
         'config_writer',
         'worker',
         'api',
@@ -41,6 +42,10 @@ def main():
     if cmd == 'project_checker':
         from manager.project_checker import project_checker
         project_checker()
+
+    if cmd == 'domain_cleaner':
+        from manager.domain_cleaner import domain_cleaner
+        domain_cleaner()
 
     if cmd == 'config_writer':
         from manager.config_writer import writer

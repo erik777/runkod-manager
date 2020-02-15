@@ -1,7 +1,7 @@
 import random
 import string
 
-from sqlalchemy import (Column, String, DateTime, Integer, SmallInteger, Binary)
+from sqlalchemy import (Column, String, DateTime, Integer, SmallInteger, Binary, Index)
 from sqlalchemy.ext.declarative import declarative_base
 
 from manager.util import now_utc, md5_checksum
@@ -75,3 +75,7 @@ class Domain(Base):
 
     def __repr__(self):
         return '<Domain {}>'.format(self.name)
+
+
+# For domain cleaner
+Index('ix_domains_01', Domain.verified, Domain.created)
