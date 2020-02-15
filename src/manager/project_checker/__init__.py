@@ -13,7 +13,7 @@ from manager.util import now_utc, assert_env_vars
 
 assert_env_vars('MASTER_IP', 'CERT_BASE_DIR', 'LE_CERT_BASE_DIR', 'CERT_WEB_ROOT', 'CERT_EMAIL')
 
-logger = create_logger('sync')
+logger = create_logger('project-checker')
 
 MASTER_IP = os.environ.get('MASTER_IP')
 
