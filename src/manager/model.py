@@ -1,7 +1,8 @@
-from sqlalchemy import (Column, String, DateTime, Integer, SmallInteger, Binary)
-from sqlalchemy.ext.declarative import declarative_base
 import random
 import string
+
+from sqlalchemy import (Column, String, DateTime, Integer, SmallInteger, Binary)
+from sqlalchemy.ext.declarative import declarative_base
 
 from manager.util import now_utc, md5_checksum
 
