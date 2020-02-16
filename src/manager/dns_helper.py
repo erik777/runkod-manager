@@ -9,7 +9,7 @@ def is_domain_exists(name: str) -> bool:
         resolver.query(name, 'A')
     except NXDOMAIN:
         return False
-    else:
+    except Exception:
         pass
 
     return True
