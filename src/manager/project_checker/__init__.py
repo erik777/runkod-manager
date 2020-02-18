@@ -44,6 +44,8 @@ def project_checker():
 
         ip_verified = ip == MASTER_IP
 
+        project.ip_resolved = ip
+
         if ip_verified:
 
             # renew certs every 30 days

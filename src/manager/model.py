@@ -28,6 +28,8 @@ class Project(Base):
 
     ip_errs = Column('ip_errs', Integer, nullable=False, default=0)
 
+    ip_resolved = Column('ip_resolved', String)
+
     next_ip_check = Column('next_ip_check', DateTime(timezone=True), nullable=False, default=now_utc)
 
     stopped = Column('stopped', SmallInteger, nullable=False, default=0)
