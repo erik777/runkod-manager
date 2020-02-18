@@ -22,7 +22,7 @@ class ProjectResource(Resource):
 
         return {
                    'ip_errs': project.ip_errs,
-                   'ip_resolved': project.ip_resolved,
+                   'ips_resolved': project.ips_resolved.split(',') if project.ips_resolved is not None else [],
                    'next_ip_check': dt_api_format(project.next_ip_check),
                    'stopped': project.stopped,
                    'cert_status': project.cert_status,
