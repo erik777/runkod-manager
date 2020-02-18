@@ -10,6 +10,8 @@ from manager.helper import create_cert
 from manager.logger import create_logger
 from manager.model import Project
 from manager.util import now_utc, assert_env_vars
+from manager.dns_helper import get_a_records
+
 
 assert_env_vars('MASTER_IP', 'CERT_BASE_DIR', 'LE_CERT_BASE_DIR', 'CERT_WEB_ROOT', 'CERT_EMAIL')
 
@@ -37,6 +39,7 @@ def project_checker():
             project.cert_status = 0
             continue
 
+        # Leaving here basic for future CNAME support scenario
         try:
             ip = socket.gethostbyname(project.name)
         except BaseException:
@@ -44,8 +47,8 @@ def project_checker():
 
         ip_verified = ip == MASTER_IP
 
-        # save last resolved ip address
-        project.ip_resolved = ip
+        # Save A record ip addresses
+        project.ips_resolved = ','.join(get_a_records(project.name))
 
         if ip_verified:
 

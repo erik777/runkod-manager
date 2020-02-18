@@ -18,7 +18,14 @@ def is_domain_exists(name: str) -> bool:
 def get_txt_records(name: str) -> list:
     try:
         answers = resolver.query(name, 'TXT')
-        txt_records = list(set([x.to_text().strip().rstrip('"').lstrip('"') for x in answers]))
-        return txt_records
+        return list(set([x.to_text().strip().rstrip('"').lstrip('"') for x in answers]))
+    except DNSException:
+        return []
+
+
+def get_a_records(name: str) -> list:
+    try:
+        answers = resolver.query(name, 'A')
+        return list(set([x.to_text().strip() for x in answers]))
     except DNSException:
         return []
