@@ -44,6 +44,7 @@ def project_checker():
 
         ip_verified = ip == MASTER_IP
 
+        # save last resolved ip address
         project.ip_resolved = ip
 
         if ip_verified:

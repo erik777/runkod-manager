@@ -2,7 +2,11 @@ from flask import Flask
 from flask_restful import Api
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from manager.api.resources import (IndexResource, HostIpResource, DomainVerificationResource, DomainExtractResource)
+from manager.api.resources import (IndexResource,
+                                   HostIpResource,
+                                   DomainVerificationResource,
+                                   DomainExtractResource,
+                                   ProjectResource)
 
 app = None
 
@@ -19,6 +23,7 @@ def __flask_setup():
     api.add_resource(HostIpResource, '/host-ip')
     api.add_resource(DomainVerificationResource, '/domain-verification')
     api.add_resource(DomainExtractResource, '/domain-extract')
+    api.add_resource(ProjectResource, '/project')
 
 
 def __run_dev_server():
