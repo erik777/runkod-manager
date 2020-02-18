@@ -1,5 +1,8 @@
+from datetime import timedelta
+
 from flask_restful import reqparse, Resource, abort
 
+from manager.constants import *
 from manager.db import session_maker
 from manager.model import Project
 from manager.util import dt_api_format
@@ -20,11 +23,16 @@ class ProjectResource(Resource):
         if project is None:
             abort(404)
 
+        next_cert_date = None
+        if project.cert_date:
+            next_cert_date = project.cert_date + timedelta(days=SSL_RENEW_DATES)
+
         return {
                    'ip_errs': project.ip_errs,
                    'ips_resolved': project.ips_resolved.split(',') if project.ips_resolved is not None else [],
                    'next_ip_check': dt_api_format(project.next_ip_check),
                    'stopped': project.stopped,
                    'cert_status': project.cert_status,
-                   'cert_date': dt_api_format(project.cert_date)
+                   'cert_date': dt_api_format(project.cert_date),
+                   'next_cert_date': dt_api_format(next_cert_date)
                }, 200

@@ -5,13 +5,13 @@ from typing import List
 
 from sqlalchemy.orm.session import Session
 
+from manager.constants import SSL_RENEW_DATES
 from manager.db import session_maker
+from manager.dns_helper import get_a_records
 from manager.helper import create_cert
 from manager.logger import create_logger
 from manager.model import Project
 from manager.util import now_utc, assert_env_vars
-from manager.dns_helper import get_a_records
-
 
 assert_env_vars('MASTER_IP', 'CERT_BASE_DIR', 'LE_CERT_BASE_DIR', 'CERT_WEB_ROOT', 'CERT_EMAIL')
 
@@ -53,7 +53,7 @@ def project_checker():
         if ip_verified:
 
             # renew certs every 30 days
-            if project.cert_status == 1 and (now_utc() - project.cert_date).days >= 30:
+            if project.cert_status == 1 and (now_utc() - project.cert_date).days >= SSL_RENEW_DATES:
                 if create_cert(project):
                     project.cert_date = now_utc()
                     logger.info('Project certificate renewed {}'.format(project.name))
