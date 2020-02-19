@@ -50,15 +50,18 @@ def project_checker():
         # Save A record ip addresses
         project.ips_resolved = ','.join(get_a_records(project.name))
 
+        # Save last check date
+        project.last_ip_check = now_utc()
+
         if ip_verified:
 
-            # renew certs every 30 days
+            # renew certificate every 30 days
             if project.cert_status == 1 and (now_utc() - project.cert_date).days >= SSL_RENEW_DATES:
                 if create_cert(project):
                     project.cert_date = now_utc()
                     logger.info('Project certificate renewed {}'.format(project.name))
 
-            # first cert creation
+            # first certificate creation
             if project.cert_status == 0:
                 if create_cert(project):
                     project.cert_status = 1

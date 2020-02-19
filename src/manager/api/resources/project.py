@@ -17,7 +17,13 @@ class ProjectResource(Resource):
         name = args['name']
 
         session = session_maker()
-        project: Project = session.query(Project).filter(Project.name == name).first()
+        project: Project = session.query(Project) \
+            .with_entities(Project.ip_errs, Project.ips_resolved, Project.next_ip_check, Project.last_ip_check,
+                           Project.stopped, Project.cert_status, Project.cert_date) \
+            .filter(Project.name == name) \
+            .filter(Project.last_ip_check.isnot(None)) \
+            .first()
+
         session.close()
 
         if project is None:
@@ -31,6 +37,7 @@ class ProjectResource(Resource):
                    'ip_errs': project.ip_errs,
                    'ips_resolved': project.ips_resolved.split(',') if project.ips_resolved is not None else [],
                    'next_ip_check': dt_api_format(project.next_ip_check),
+                   'last_ip_check': dt_api_format(project.last_ip_check),
                    'stopped': project.stopped,
                    'cert_status': project.cert_status,
                    'cert_date': dt_api_format(project.cert_date),

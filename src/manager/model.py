@@ -32,6 +32,8 @@ class Project(Base):
 
     next_ip_check = Column('next_ip_check', DateTime(timezone=True), nullable=False, default=now_utc)
 
+    last_ip_check = Column('last_ip_check', DateTime(timezone=True))
+
     stopped = Column('stopped', SmallInteger, nullable=False, default=0)
 
     cert_status = Column('cert_status', SmallInteger, nullable=False, default=0)
